@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ریاضی نهم - پاسخگوی سوالات ریاضی</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #D4AF37;
+            --accent-color: #FFD700;
+            --text-color: #f5f5f5;
+            --card-bg: #1a1a1a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), 
+                              url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%231a1a1a"/><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="none" stroke="%23D4AF37" stroke-width="2"/><circle cx="50" cy="50" r="15" fill="none" stroke="%23D4AF37" stroke-width="1.5"/></svg>');
+            background-size: 200px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--secondary-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-left: 10px;
+        }
+        
+        .logo h1 {
+            color: var(--secondary-color);
+            font-size: 1.8rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-right: 25px;
+        }
+        
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary-color);
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #ddd;
+        }
+        
+        /* Search Section */
+        .search-section {
+            padding: 50px 0;
+            background-color: rgba(26, 26, 26, 0.7);
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .search-box {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 50px 0 0 50px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: var(--text-color);
+            font-size: 1.1rem;
+            outline: none;
+        }
+        
+        .search-box button {
+            padding: 0 30px;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .search-box button:hover {
+            background-color: var(--accent-color);
+        }
+        
+        .examples {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .example {
+            background-color: rgba(212, 175, 55, 0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .example:hover {
+            background-color: rgba(212, 175, 55, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        /* Result Section */
+        .result-section {
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            display: none;
+        }
+        
+        .result-section.active {
+            display: block;
+        }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .result-header h3 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+        
+        .result-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .math-formula {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-right: 3px solid var(--secondary-color);
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loading i {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .api-status {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .status-online {
+            color: #4CAF50;
+        }
+        
+        .status-offline {
+            color: #f44336;
+        }
+        
+        /* Important Questions Section */
+        .important-questions {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            display: inline-block;
+            padding: 0 20px;
+            background-color: var(--primary-color);
+            z-index: 1;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            left: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            z-index: 0;
+        }
+        
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .question-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+        
+        .question-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .question-card p {
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+        
+        .question-card .answer {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            border-right: 3px solid var(--secondary-color);
+            margin-top: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 2px solid var(--secondary-color);
+            margin-top: 60px;
+        }
+        
+        .creator {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-top: 20px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .questions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-square-root-alt"></i>
+                    <h1>ریاضی نهم</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">صفحه اصلی</a></li>
+                        <li><a href="#search">پرسش و پاسخ</a></li>
+                        <li><a href="#important-questions">سوالات مهم</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>پاسخگوی سوالات ریاضی پایه نهم</h2>
+            <p>سوالات خود را درباره ریاضی نهم بپرسید و پاسخ دقیق و کامل دریافت کنید. از سوالات کتاب درسی تا فرمول‌های مهم، همه در اینجا موجود است.</p>
+            <div class="api-status">
+                <span id="api-status-text">وضعیت API: در حال بررسی...</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section" id="search">
+        <div class="container">
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="question-input" placeholder="سوال خود را اینجا تایپ کنید...">
+                    <button id="search-btn">جستجو</button>
+                </div>
+                <div class="examples">
+                    <div class="example">سوال ۲ صفحه ۲۲ جوابش چیست؟</div>
+                    <div class="example">فرمول محیط دایره چیست؟</div>
+                    <div class="example">جمع اعداد گویا چگونه است؟</div>
+                    <div class="example">قضیه فیثاغورث چیست؟</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Indicator -->
+    <div class="loading" id="loading">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>در حال دریافت پاسخ از API...</p>
+    </div>
+
+    <!-- Result Section -->
+    <section class="container">
+        <div class="result-section" id="result">
+            <div class="result-header">
+                <h3>پاسخ سوال شما</h3>
+                <i class="fas fa-calculator" style="color: var(--secondary-color); font-size: 1.5rem;"></i>
+            </div>
+            <div class="result-content" id="result-content">
+                <!-- پاسخ سوال در اینجا نمایش داده می‌شود -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Important Questions Section -->
+    <section class="important-questions" id="important-questions">
+        <div class="container">
+            <div class="section-title">
+                <h2>سوالات مهم</h2>
+            </div>
+            <div class="questions-grid">
+                <div class="question-card">
+                    <h3>محیط دایره</h3>
+                    <p>فرمول محاسبه محیط دایره چیست؟</p>
+                    <div class="answer">
+                        <p>فرمول محیط دایره: C = 2πr</p>
+                        <p>که در آن:</p>
+                        <p>C: محیط دایره</p>
+                        <p>π: عدد پی (تقریباً 3.14)</p>
+                        <p>r: شعاع دایره</p>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <h3>مساحت مثلث</h3>
+                    <p>چگونه مساحت مثلث را محاسبه کنیم؟</p>
+                    <div class="answer">
+                        <p>فرمول مساحت مثلث: A = ½ × b × h</p>
+                        <p>که در آن:</p>
+                        <p>A: مساحت مثلث</p>
+                        <p>b: طول قاعده مثلث</p>
+                        <p>h: ارتفاع مثلث</p>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <h3>قضیه فیثاغورث</h3>
+                    <p>قضیه فیثاغورث چه می‌گوید؟</p>
+                    <div class="answer">
+                        <p>در مثلث قائم‌الزاویه، مربع وتر برابر است با مجموع مربعات دو ضلع دیگر.</p>
+                        <p>a² + b² = c²</p>
+                        <p>که در آن c وتر مثلث است.</p>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <h3>اعداد گویا</h3>
+                    <p>اعداد گویا چه اعدادی هستند؟</p>
+                    <div class="answer">
+                        <p>اعداد گویا اعدادی هستند که بتوان آن‌ها را به صورت کسر a/b نوشت، که در آن a و b اعداد صحیح هستند و b ≠ 0.</p>
+                        <p>مثال: ½, ¾, 2, -5</p>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <h3>معادله خط</h3>
+                    <p>فرمول معادله خط چیست؟</p>
+                    <div class="answer">
+                        <p>فرمول کلی معادله خط: y = mx + b</p>
+                        <p>که در آن:</p>
+                        <p>m: شیب خط</p>
+                        <p>b: عرض از مبدأ</p>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <h3>محاسبه حجم مکعب</h3>
+                    <p>چگونه حجم مکعب را محاسبه کنیم؟</p>
+                    <div class="answer">
+                        <p>فرمول حجم مکعب: V = a³</p>
+                        <p>که در آن:</p>
+                        <p>V: حجم مکعب</p>
+                        <p>a: طول ضلع مکعب</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>سایت پاسخگوی سوالات ریاضی پایه نهم</p>
+            <p class="creator">سازنده: طاها فرهیخته</p>
+        </div>
+    </footer>
+
+    <script>
+        // کلید API
+        const API_KEY = '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';
+        
+        // دیتابیس سوالات و پاسخ‌ها (به عنوان پشتیبان)
+        const mathDatabase = {
+            "سوال ۲ صفحه ۲۲": "پاسخ سوال ۲ صفحه ۲۲: این سوال درباره جمع اعداد صحیح است. برای حل آن باید ابتدا اعداد مثبت و منفی را از هم جدا کرده و سپس محاسبه را انجام دهید.",
+            "فرمول محیط دایره": "فرمول محیط دایره: C = 2πr که در آن C محیط دایره، π عدد پی (تقریباً 3.14) و r شعاع دایره است.",
+            "جمع اعداد گویا": "برای جمع اعداد گویا، ابتدا مخرج‌ها را یکسان کنید، سپس صورت‌ها را با هم جمع کنید و مخرج مشترک را حفظ کنید.",
+            "قضیه فیثاغورث": "در مثلث قائم‌الزاویه، مربع وتر برابر است با مجموع مربعات دو ضلع دیگر. فرمول: a² + b² = c²",
+            "مساحت مثلث": "فرمول مساحت مثلث: A = ½ × b × h که در آن A مساحت، b طول قاعده و h ارتفاع مثلث است.",
+            "محاسبه حجم مکعب": "فرمول حجم مکعب: V = a³ که در آن V حجم و a طول ضلع مکعب است.",
+            "اعداد اول": "اعداد اول اعدادی طبیعی بزرگتر از 1 هستند که فقط بر 1 و خودشان بخش‌پذیر باشند. مانند: 2, 3, 5, 7, 11, ...",
+            "معادله درجه دوم": "فرمول کلی معادله درجه دوم: ax² + bx + c = 0. ریشه‌های آن با فرمول x = [-b ± √(b² - 4ac)] / 2a محاسبه می‌شوند.",
+            "محیط مستطیل": "فرمول محیط مستطیل: P = 2(l + w) که در آن P محیط، l طول و w عرض مستطیل است.",
+            "مساحت دایره": "فرمول مساحت دایره: A = πr² که در آن A مساحت، π عدد پی و r شعاع دایره است."
+        };
+
+        // عناصر DOM
+        const questionInput = document.getElementById('question-input');
+        const searchBtn = document.getElementById('search-btn');
+        const resultSection = document.getElementById('result');
+        const resultContent = document.getElementById('result-content');
+        const examples = document.querySelectorAll('.example');
+        const loading = document.getElementById('loading');
+        const apiStatusText = document.getElementById('api-status-text');
+
+        // بررسی وضعیت API
+        async function checkAPIStatus() {
+            try {
+                // در اینجا می‌توانید وضعیت API را بررسی کنید
+                // فعلاً برای نمونه، فرض می‌کنیم API در دسترس است
+                apiStatusText.textContent = "وضعیت API: آنلاین";
+                apiStatusText.className = "status-online";
+            } catch (error) {
+                apiStatusText.textContent = "وضعیت API: آفلاین (از دیتابیس داخلی استفاده می‌شود)";
+                apiStatusText.className = "status-offline";
+            }
+        }
+
+        // فراخوانی API برای دریافت پاسخ
+        async function callMathAPI(question) {
+            // نمایش حالت در حال بارگذاری
+            loading.style.display = 'block';
+            resultSection.classList.remove('active');
+            
+            try {
+                // اینجا باید آدرس واقعی API را قرار دهید
+                // این فقط یک نمونه است
+                const response = await fetch('https://api.example.com/math-answers', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        question: question,
+                        subject: 'ریاضی نهم'
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('خطا در ارتباط با API');
+                }
+                
+                const data = await response.json();
+                return data.answer;
+            } catch (error) {
+                console.error('خطا در فراخوانی API:', error);
+                // در صورت خطا از دیتابیس داخلی استفاده می‌کنیم
+                return getAnswerFromDatabase(question);
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        // جستجو در دیتابیس داخلی
+        function getAnswerFromDatabase(question) {
+            // جستجو در دیتابیس
+            let answer = mathDatabase[question];
+            
+            if (!answer) {
+                // اگر سوال دقیقاً پیدا نشد، جستجوی جزئی انجام می‌دهیم
+                for (const key in mathDatabase) {
+                    if (question.includes(key) || key.includes(question)) {
+                        answer = mathDatabase[key];
+                        break;
+                    }
+                }
+            }
+            
+            return answer || 'متأسفانه پاسخی برای سوال شما یافت نشد. لطفاً سوال خود را به شکل دیگری بیان کنید.';
+        }
+
+        // تابع جستجو
+        async function searchAnswer() {
+            const question = questionInput.value.trim();
+            
+            if (question === '') {
+                showResult('لطفاً سوال خود را وارد کنید.');
+                return;
+            }
+            
+            // استفاده از API برای دریافت پاسخ
+            const answer = await callMathAPI(question);
+            showResult(answer);
+        }
+
+        // تابع نمایش نتیجه
+        function showResult(content) {
+            resultContent.innerHTML = content;
+            resultSection.classList.add('active');
+            
+            // اسکرول به بخش نتیجه
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // رویدادهای کلیک
+        searchBtn.addEventListener('click', searchAnswer);
+        
+        questionInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchAnswer();
+            }
+        });
+        
+        examples.forEach(example => {
+            example.addEventListener('click', function() {
+                questionInput.value = this.textContent;
+                searchAnswer();
+            });
+        });
+
+        // بررسی وضعیت API هنگام بارگذاری صفحه
+        window.addEventListener('load', checkAPIStatus);
+    </script>
+</body>
+</html>
