@@ -112,6 +112,75 @@
             color: #ddd;
         }
         
+        /* API Section */
+        .api-section {
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .api-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .api-header h3 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+        
+        .api-form {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .api-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: var(--text-color);
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .api-form button {
+            padding: 0 25px;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .api-form button:hover {
+            background-color: var(--accent-color);
+        }
+        
+        .api-status {
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .status-online {
+            color: #4CAF50;
+        }
+        
+        .status-offline {
+            color: #f44336;
+        }
+        
         /* Search Section */
         .search-section {
             padding: 50px 0;
@@ -234,20 +303,6 @@
             margin-bottom: 10px;
         }
         
-        .api-status {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 0.9rem;
-        }
-        
-        .status-online {
-            color: #4CAF50;
-        }
-        
-        .status-offline {
-            color: #f44336;
-        }
-        
         /* Important Questions Section */
         .important-questions {
             padding: 60px 0;
@@ -355,6 +410,10 @@
                 font-size: 2rem;
             }
             
+            .api-form {
+                flex-direction: column;
+            }
+            
             .questions-grid {
                 grid-template-columns: 1fr;
             }
@@ -373,6 +432,7 @@
                 <nav>
                     <ul>
                         <li><a href="#home">صفحه اصلی</a></li>
+                        <li><a href="#api">تنظیمات API</a></li>
                         <li><a href="#search">پرسش و پاسخ</a></li>
                         <li><a href="#important-questions">سوالات مهم</a></li>
                     </ul>
@@ -386,8 +446,22 @@
         <div class="container">
             <h2>پاسخگوی سوالات ریاضی پایه نهم</h2>
             <p>سوالات خود را درباره ریاضی نهم بپرسید و پاسخ دقیق و کامل دریافت کنید. از سوالات کتاب درسی تا فرمول‌های مهم، همه در اینجا موجود است.</p>
+        </div>
+    </section>
+
+    <!-- API Section -->
+    <section class="container" id="api">
+        <div class="api-section">
+            <div class="api-header">
+                <h3>تنظیمات API</h3>
+                <i class="fas fa-key" style="color: var(--secondary-color); font-size: 1.5rem;"></i>
+            </div>
+            <div class="api-form">
+                <input type="text" id="api-key-input" placeholder="کلید API خود را اینجا وارد کنید...">
+                <button id="save-api-btn">ذخیره API</button>
+            </div>
             <div class="api-status">
-                <span id="api-status-text">وضعیت API: در حال بررسی...</span>
+                <span id="api-status-text">لطفاً کلید API خود را وارد کنید</span>
             </div>
         </div>
     </section>
@@ -508,9 +582,6 @@
     </footer>
 
     <script>
-        // کلید API
-        const API_KEY = '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';
-        
         // دیتابیس سوالات و پاسخ‌ها (به عنوان پشتیبان)
         const mathDatabase = {
             "سوال ۲ صفحه ۲۲": "پاسخ سوال ۲ صفحه ۲۲: این سوال درباره جمع اعداد صحیح است. برای حل آن باید ابتدا اعداد مثبت و منفی را از هم جدا کرده و سپس محاسبه را انجام دهید.",
@@ -526,23 +597,43 @@
         };
 
         // عناصر DOM
+        const apiKeyInput = document.getElementById('api-key-input');
+        const saveApiBtn = document.getElementById('save-api-btn');
+        const apiStatusText = document.getElementById('api-status-text');
         const questionInput = document.getElementById('question-input');
         const searchBtn = document.getElementById('search-btn');
         const resultSection = document.getElementById('result');
         const resultContent = document.getElementById('result-content');
         const examples = document.querySelectorAll('.example');
         const loading = document.getElementById('loading');
-        const apiStatusText = document.getElementById('api-status-text');
 
-        // بررسی وضعیت API
-        async function checkAPIStatus() {
-            try {
-                // در اینجا می‌توانید وضعیت API را بررسی کنید
-                // فعلاً برای نمونه، فرض می‌کنیم API در دسترس است
-                apiStatusText.textContent = "وضعیت API: آنلاین";
+        // بارگذاری API Key از localStorage
+        let API_KEY = localStorage.getItem('math_api_key');
+        if (API_KEY) {
+            apiKeyInput.value = API_KEY;
+            updateApiStatus(true);
+        }
+
+        // ذخیره API Key
+        saveApiBtn.addEventListener('click', function() {
+            const key = apiKeyInput.value.trim();
+            if (key) {
+                API_KEY = key;
+                localStorage.setItem('math_api_key', key);
+                updateApiStatus(true);
+                alert('کلید API با موفقیت ذخیره شد!');
+            } else {
+                alert('لطفاً یک کلید API معتبر وارد کنید.');
+            }
+        });
+
+        // به روزرسانی وضعیت API
+        function updateApiStatus(isSet) {
+            if (isSet) {
+                apiStatusText.textContent = "API تنظیم شده است و آماده استفاده می‌باشد.";
                 apiStatusText.className = "status-online";
-            } catch (error) {
-                apiStatusText.textContent = "وضعیت API: آفلاین (از دیتابیس داخلی استفاده می‌شود)";
+            } else {
+                apiStatusText.textContent = "API تنظیم نشده است. از دیتابیس داخلی استفاده می‌شود.";
                 apiStatusText.className = "status-offline";
             }
         }
@@ -552,6 +643,12 @@
             // نمایش حالت در حال بارگذاری
             loading.style.display = 'block';
             resultSection.classList.remove('active');
+            
+            // اگر API Key تنظیم نشده باشد، از دیتابیس داخلی استفاده می‌کنیم
+            if (!API_KEY) {
+                loading.style.display = 'none';
+                return getAnswerFromDatabase(question);
+            }
             
             try {
                 // اینجا باید آدرس واقعی API را قرار دهید
@@ -564,7 +661,8 @@
                     },
                     body: JSON.stringify({
                         question: question,
-                        subject: 'ریاضی نهم'
+                        subject: 'ریاضی نهم',
+                        grade: 'نهم'
                     })
                 });
                 
@@ -573,7 +671,7 @@
                 }
                 
                 const data = await response.json();
-                return data.answer;
+                return data.answer || 'پاسخی برای این سوال یافت نشد.';
             } catch (error) {
                 console.error('خطا در فراخوانی API:', error);
                 // در صورت خطا از دیتابیس داخلی استفاده می‌کنیم
@@ -639,9 +737,6 @@
                 searchAnswer();
             });
         });
-
-        // بررسی وضعیت API هنگام بارگذاری صفحه
-        window.addEventListener('load', checkAPIStatus);
     </script>
 </body>
-</html>
+    </html>
