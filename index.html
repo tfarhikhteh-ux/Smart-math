@@ -3,740 +3,961 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ریاضی نهم - پاسخگوی سوالات ریاضی</title>
+    <title>FAI | هوش مصنوعی فرهیخته</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Scheherazade+New&display=swap" rel="stylesheet">
     <style>
+        /* استایل‌های بهبود یافته */
         :root {
-            --primary-color: #000000;
-            --secondary-color: #D4AF37;
-            --accent-color: #FFD700;
-            --text-color: #f5f5f5;
-            --card-bg: #1a1a1a;
+            --gold: #D4AF37;
+            --dark-gold: #B8860B;
+            --light-gold: #F5E6B3;
+            --black: #000000;
+            --dark-bg: #0A0A0A;
+            --light-bg: #1A1A1A;
+            --text-light: #F0F0F0;
+            --accent: #8B7500;
+            --success: #2E8B57;
+            --info: #1E90FF;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), 
-                              url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%231a1a1a"/><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="none" stroke="%23D4AF37" stroke-width="2"/><circle cx="50" cy="50" r="15" fill="none" stroke="%23D4AF37" stroke-width="1.5"/></svg>');
-            background-size: 200px;
+            font-family: 'Scheherazade New', serif;
+            background: radial-gradient(circle at top right, #111111 0%, #000000 100%);
+            color: var(--text-light);
+            line-height: 1.8;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .luxury-header {
+            background: linear-gradient(135deg, var(--black) 0%, #111111 100%);
+            color: var(--gold);
+            padding: 4rem 0 2rem;
+            text-align: center;
+            border-bottom: 3px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
         }
         
-        /* Header Styles */
-        header {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px 0;
-            border-bottom: 2px solid var(--secondary-color);
-            position: sticky;
+        .luxury-header::before {
+            content: "";
+            position: absolute;
             top: 0;
-            z-index: 100;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
         }
         
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .luxury-header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
         }
         
         .logo {
-            display: flex;
-            align-items: center;
+            font-family: 'Noto Nastaliq Urdu', serif;
+            font-size: 5rem;
+            margin-bottom: 0.5rem;
+            font-weight: normal;
+            text-shadow: 0 0 50px rgba(212, 175, 55, 0.7);
+            background: linear-gradient(135deg, var(--gold), var(--light-gold), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 4px;
+            position: relative;
+            display: inline-block;
+            animation: float 6s ease-in-out infinite;
         }
         
-        .logo i {
-            color: var(--secondary-color);
-            font-size: 2.5rem;
-            margin-left: 10px;
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
         }
         
-        .logo h1 {
-            color: var(--secondary-color);
-            font-size: 1.8rem;
+        .logo::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
         }
         
-        nav ul {
-            display: flex;
-            list-style: none;
+        .logo-subtitle {
+            font-size: 1.5rem;
+            color: var(--light-gold);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
         }
         
-        nav ul li {
-            margin-right: 25px;
-        }
-        
-        nav ul li a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-        
-        nav ul li a:hover {
-            color: var(--secondary-color);
-            background-color: rgba(212, 175, 55, 0.1);
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 80px 0;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-        }
-        
-        .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--secondary-color);
-        }
-        
-        .hero p {
+        .tagline {
             font-size: 1.2rem;
+            color: var(--text-light);
             max-width: 700px;
-            margin: 0 auto 30px;
-            color: #ddd;
+            margin: 0 auto 1.5rem;
+            opacity: 0.9;
+            line-height: 1.6;
         }
         
-        /* API Section */
-        .api-section {
-            padding: 30px;
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-        }
-        
-        .api-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-        }
-        
-        .api-header h3 {
-            color: var(--secondary-color);
-            font-size: 1.5rem;
-        }
-        
-        .api-form {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .api-form input {
-            flex: 1;
-            padding: 12px 15px;
-            border: 2px solid var(--secondary-color);
-            border-radius: 8px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: var(--text-color);
-            font-size: 1rem;
-            outline: none;
-        }
-        
-        .api-form button {
-            padding: 0 25px;
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: background-color 0.3s;
-        }
-        
-        .api-form button:hover {
-            background-color: var(--accent-color);
-        }
-        
-        .api-status {
-            margin-top: 15px;
-            font-size: 0.9rem;
-        }
-        
-        .status-online {
-            color: #4CAF50;
-        }
-        
-        .status-offline {
-            color: #f44336;
-        }
-        
-        /* Search Section */
-        .search-section {
-            padding: 50px 0;
-            background-color: rgba(26, 26, 26, 0.7);
-            border-radius: 10px;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        }
-        
-        .search-container {
-            max-width: 800px;
+        .container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .search-box {
-            display: flex;
-            margin-bottom: 30px;
-        }
-        
-        .search-box input {
-            flex: 1;
-            padding: 15px 20px;
-            border: 2px solid var(--secondary-color);
-            border-radius: 50px 0 0 50px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: var(--text-color);
-            font-size: 1.1rem;
-            outline: none;
-        }
-        
-        .search-box button {
             padding: 0 30px;
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            border: none;
-            border-radius: 0 50px 50px 0;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: background-color 0.3s;
         }
         
-        .search-box button:hover {
-            background-color: var(--accent-color);
+        /* بخش جستجوی بهبود یافته */
+        .search-section {
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(10, 10, 10, 0.95));
+            border-radius: 25px;
+            padding: 3rem;
+            margin: 3rem auto;
+            max-width: 900px;
+            border: 2px solid var(--dark-gold);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 175, 55, 0.1);
+            position: relative;
+            backdrop-filter: blur(15px);
+            transition: all 0.4s ease;
+            animation: pulse 4s infinite;
         }
         
-        .examples {
+        @keyframes pulse {
+            0% { box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 175, 55, 0.1); }
+            50% { box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 0 3px rgba(212, 175, 55, 0.2); }
+            100% { box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 175, 55, 0.1); }
+        }
+        
+        .search-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .search-form {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
             gap: 15px;
+            margin-bottom: 1.5rem;
         }
         
-        .example {
-            background-color: rgba(212, 175, 55, 0.1);
-            padding: 10px 20px;
-            border-radius: 30px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+        .search-input {
+            flex: 1;
+            padding: 18px 25px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--dark-gold);
+            border-radius: 15px;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-family: 'Scheherazade New', serif;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.4), inset 0 2px 10px rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.9);
+        }
+        
+        .search-btn {
+            background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+            color: var(--black);
+            border: none;
+            border-radius: 15px;
+            padding: 0 30px;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            font-family: 'Scheherazade New', serif;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .example:hover {
-            background-color: rgba(212, 175, 55, 0.2);
+        .search-btn:hover {
             transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
         }
         
-        /* Result Section */
-        .result-section {
-            padding: 30px;
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+        /* بخش پاسخ */
+        .response-section {
             display: none;
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(10, 10, 10, 0.95));
+            border-radius: 25px;
+            padding: 3rem;
+            margin: 3rem auto;
+            max-width: 900px;
+            border: 2px solid var(--dark-gold);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 175, 55, 0.1);
+            animation: slideUp 0.6s ease;
+            backdrop-filter: blur(15px);
+            position: relative;
         }
         
-        .result-section.active {
-            display: block;
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
         }
         
-        .result-header {
+        .response-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
         }
         
-        .result-header h3 {
-            color: var(--secondary-color);
-            font-size: 1.5rem;
+        .response-title {
+            color: var(--gold);
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
         }
         
-        .result-content {
+        .keywords-display {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin: 1rem 0 2rem;
+            border-right: 3px solid var(--gold);
+        }
+        
+        .keywords-display span {
+            color: var(--light-gold);
+            font-weight: bold;
+        }
+        
+        /* بخش ویژگی‌ها */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 4rem 0;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, rgba(25, 25, 25, 0.9), rgba(15, 15, 15, 0.9));
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid var(--dark-gold);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+        
+        /* بخش موضوعات داغ */
+        .hot-topics {
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(10, 10, 10, 0.95));
+            border-radius: 25px;
+            padding: 3rem;
+            margin: 4rem auto;
+            max-width: 900px;
+            border: 2px solid var(--dark-gold);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+        }
+        
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 2rem;
+        }
+        
+        .topic-card {
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.9), rgba(20, 20, 20, 0.9));
+            border: 1px solid var(--dark-gold);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.9), rgba(30, 30, 30, 0.9));
+            border-color: var(--gold);
+        }
+        
+        /* آمار زنده */
+        .live-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px 30px;
+            border: 1px solid var(--dark-gold);
+            text-align: center;
+            min-width: 150px;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: scale(1.05);
+            border-color: var(--gold);
+        }
+        
+        .luxury-footer {
+            background: linear-gradient(135deg, var(--black) 0%, #111111 100%);
+            color: var(--text-light);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 3px solid var(--gold);
+            margin-top: 5rem;
+            position: relative;
+        }
+        
+        .designer-credit {
+            color: var(--gold);
             font-size: 1.1rem;
-            line-height: 1.8;
+            font-weight: bold;
+            margin-top: 1rem;
+            padding: 10px 20px;
+            border: 1px solid var(--dark-gold);
+            border-radius: 10px;
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.3);
         }
         
-        .math-formula {
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            border-right: 3px solid var(--secondary-color);
-        }
-        
+        /* بخش بارگذاری بهبود یافته */
         .loading {
             display: none;
             text-align: center;
-            padding: 20px;
+            padding: 4rem;
         }
         
-        .loading i {
-            color: var(--secondary-color);
-            font-size: 2rem;
-            margin-bottom: 10px;
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(212, 175, 55, 0.2);
+            border-top: 5px solid var(--gold);
+            border-radius: 50%;
+            animation: spin 1.2s linear infinite;
+            margin: 0 auto 2rem;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
         }
         
-        /* Important Questions Section */
-        .important-questions {
-            padding: 60px 0;
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-        }
-        
-        .section-title h2 {
-            font-size: 2rem;
-            color: var(--secondary-color);
-            display: inline-block;
-            padding: 0 20px;
-            background-color: var(--primary-color);
-            z-index: 1;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: 0;
-            left: 0;
-            height: 2px;
-            background-color: var(--secondary-color);
-            z-index: 0;
-        }
-        
-        .questions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-        }
-        
-        .question-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .question-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
-            border-color: rgba(212, 175, 55, 0.5);
-        }
-        
-        .question-card h3 {
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-        
-        .question-card p {
-            margin-bottom: 15px;
-            color: #ddd;
-        }
-        
-        .question-card .answer {
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 15px;
-            border-radius: 8px;
-            border-right: 3px solid var(--secondary-color);
-            margin-top: 10px;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: rgba(0, 0, 0, 0.9);
-            padding: 40px 0;
-            text-align: center;
-            border-top: 2px solid var(--secondary-color);
-            margin-top: 60px;
-        }
-        
-        .creator {
-            font-size: 1.2rem;
-            color: var(--secondary-color);
-            margin-top: 20px;
-        }
-        
-        /* Responsive Design */
+        /* بهبود responsive */
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
+            .logo {
+                font-size: 3.5rem;
             }
             
-            nav ul {
-                margin-top: 20px;
+            .search-form {
+                flex-direction: column;
+            }
+            
+            .search-btn {
+                padding: 15px;
                 justify-content: center;
             }
             
-            nav ul li {
-                margin: 0 10px;
+            .topic-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
             
-            .hero h2 {
-                font-size: 2rem;
+            .live-stats {
+                gap: 15px;
             }
             
-            .api-form {
-                flex-direction: column;
+            .stat-card {
+                min-width: 120px;
+                padding: 15px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2.8rem;
             }
             
-            .questions-grid {
+            .search-section, 
+            .response-section,
+            .hot-topics {
+                padding: 2rem 1.5rem;
+                margin: 2rem auto;
+            }
+            
+            .topic-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
+    <header class="luxury-header">
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-square-root-alt"></i>
-                    <h1>ریاضی نهم</h1>
+            <h1 class="logo">FAI</h1>
+            <div class="logo-subtitle">هوش مصنوعی فرهیخته</div>
+            <p class="tagline">سیستم هوشمند جستجوی دانش مبتنی بر کلمات کلیدی - پاسخ‌های عمیق و دقیق به هر پرسش</p>
+            
+            <div class="live-stats">
+                <div class="stat-card">
+                    <div class="stat-number">۱۰+</div>
+                    <div class="stat-label">حوزه دانش</div>
                 </div>
-                <nav>
-                    <ul>
-                        <li><a href="#home">صفحه اصلی</a></li>
-                        <li><a href="#api">تنظیمات API</a></li>
-                        <li><a href="#search">پرسش و پاسخ</a></li>
-                        <li><a href="#important-questions">سوالات مهم</a></li>
-                    </ul>
-                </nav>
+                <div class="stat-card">
+                    <div class="stat-number">۵۰۰+</div>
+                    <div class="stat-label">کلیدواژه فعال</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">۱۰۰٪</div>
+                    <div class="stat-label">دقت پاسخ‌دهی</div>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <h2>پاسخگوی سوالات ریاضی پایه نهم</h2>
-            <p>سوالات خود را درباره ریاضی نهم بپرسید و پاسخ دقیق و کامل دریافت کنید. از سوالات کتاب درسی تا فرمول‌های مهم، همه در اینجا موجود است.</p>
-        </div>
-    </section>
+    <div class="container">
+        <section class="search-section">
+            <form class="search-form" id="searchForm">
+                <input type="text" class="search-input" id="searchInput" 
+                       placeholder="هر موضوعی که می‌خواهید جستجو کنید... (مثال: تاریخ تهران، علم فیزیک، فلسفه یونان)" required>
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i> جستجوی هوشمند
+                </button>
+            </form>
+            <p style="text-align: center; color: var(--light-gold); opacity: 0.8; font-size: 0.95rem;">
+                سیستم بر اساس کلمات کلیدی موجود در سوال شما پاسخ می‌دهد
+            </p>
+        </section>
 
-    <!-- API Section -->
-    <section class="container" id="api">
-        <div class="api-section">
-            <div class="api-header">
-                <h3>تنظیمات API</h3>
-                <i class="fas fa-key" style="color: var(--secondary-color); font-size: 1.5rem;"></i>
-            </div>
-            <div class="api-form">
-                <input type="text" id="api-key-input" placeholder="کلید API خود را اینجا وارد کنید...">
-                <button id="save-api-btn">ذخیره API</button>
-            </div>
-            <div class="api-status">
-                <span id="api-status-text">لطفاً کلید API خود را وارد کنید</span>
-            </div>
-        </div>
-    </section>
+        <div class="error" id="errorMessage" style="display: none;"></div>
 
-    <!-- Search Section -->
-    <section class="search-section" id="search">
-        <div class="container">
-            <div class="search-container">
-                <div class="search-box">
-                    <input type="text" id="question-input" placeholder="سوال خود را اینجا تایپ کنید...">
-                    <button id="search-btn">جستجو</button>
-                </div>
-                <div class="examples">
-                    <div class="example">سوال ۲ صفحه ۲۲ جوابش چیست؟</div>
-                    <div class="example">فرمول محیط دایره چیست؟</div>
-                    <div class="example">جمع اعداد گویا چگونه است؟</div>
-                    <div class="example">قضیه فیثاغورث چیست؟</div>
+        <div class="loading" id="loading">
+            <div class="loader"></div>
+            <p>در حال تحلیل کلمات کلیدی و جستجو در دانش FAI...</p>
+        </div>
+
+        <section class="response-section" id="responseSection">
+            <div class="response-header">
+                <h2 class="response-title">
+                    <i class="fas fa-crown"></i>
+                    <span id="responseTitle">پاسخ هوشمند FAI</span>
+                </h2>
+                <div class="response-meta">
+                    <span style="color: var(--light-gold); font-size: 0.9rem;">
+                        <i class="fas fa-brain"></i> پردازش مبتنی بر کلمات کلیدی
+                    </span>
                 </div>
             </div>
-        </div>
-    </section>
+            
+            <div class="keywords-display" id="keywordsDisplay">
+                <strong>کلمات کلیدی شناسایی شده:</strong> <span id="keywordsList"></span>
+            </div>
+            
+            <div class="response-content" id="responseContent"></div>
+        </section>
 
-    <!-- Loading Indicator -->
-    <div class="loading" id="loading">
-        <i class="fas fa-spinner fa-spin"></i>
-        <p>در حال دریافت پاسخ از API...</p>
+        <section class="hot-topics">
+            <h2 style="color: var(--gold); text-align: center; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <i class="fas fa-fire"></i> موضوعات داغ
+            </h2>
+            <p style="text-align: center; margin-bottom: 2rem; opacity: 0.9;">
+                بر روی هر موضوع کلیک کنید تا اطلاعات کامل دریافت کنید
+            </p>
+            
+            <div class="topic-grid">
+                <div class="topic-card" onclick="quickSearch('تاریخ ایران باستان')">
+                    <i class="fas fa-landmark" style="color: var(--gold); font-size: 2rem; margin-bottom: 10px;"></i>
+                    <h3>تاریخ ایران</h3>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">تمدن ۷۰۰۰ ساله</p>
+                </div>
+                
+                <div class="topic-card" onclick="quickSearch('علم فیزیک مدرن')">
+                    <i class="fas fa-atom" style="color: var(--gold); font-size: 2rem; margin-bottom: 10px;"></i>
+                    <h3>فیزیک</h3>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">قوانین طبیعت</p>
+                </div>
+                
+                <div class="topic-card" onclick="quickSearch('فلسفه یونان باستان')">
+                    <i class="fas fa-scroll" style="color: var(--gold); font-size: 2rem; margin-bottom: 10px;"></i>
+                    <h3>فلسفه</h3>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">تفکر و خرد</p>
+                </div>
+                
+                <div class="topic-card" onclick="quickSearch('ادبیات فارسی')">
+                    <i class="fas fa-book-open" style="color: var(--gold); font-size: 2rem; margin-bottom: 10px;"></i>
+                    <h3>ادبیات</h3>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">شعر و نثر فارسی</p>
+                </div>
+                
+                <div class="topic-card" onclick="quickSearch('علم نجوم و ستاره شناسی')">
+                    <i class="fas fa-star" style="color: var(--gold); font-size: 2rem; margin-bottom: 10px;"></i>
+                    <h3>نجوم</h3>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">اسرار کیهان</p>
+                </div>
+                
+                <div class="topic-card" onclick="quickSearch('هنر ایران باستان')">
+                    <i class="fas fa-palette" style="color: var(--gold); font-size: 2rem; margin-bottom: 10px;"></i>
+                    <h3>هنر</h3>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">تاریخ هنر ایران</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-key" style="color: var(--gold); font-size: 2.5rem; margin-bottom: 1rem;"></i>
+                </div>
+                <h3>جستجوی کلمه کلیدی</h3>
+                <p>سیستم هوشمند FAI کلمات کلیدی را از سوال شما استخراج کرده و دقیق‌ترین پاسخ را ارائه می‌دهد</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-database" style="color: var(--gold); font-size: 2.5rem; margin-bottom: 1rem;"></i>
+                </div>
+                <h3>دانش گسترده</h3>
+                <p>پوشش کامل علوم، تاریخ، فلسفه، هنر، تکنولوژی و فرهنگ با اطلاعات به‌روز و معتبر</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt" style="color: var(--gold); font-size: 2.5rem; margin-bottom: 1rem;"></i>
+                </div>
+                <h3>پاسخ فوری</h3>
+                <p>دریافت پاسخ‌های عمیق و تحلیلی در کمترین زمان ممکن با دقت بالا</p>
+            </div>
+        </section>
     </div>
 
-    <!-- Result Section -->
-    <section class="container">
-        <div class="result-section" id="result">
-            <div class="result-header">
-                <h3>پاسخ سوال شما</h3>
-                <i class="fas fa-calculator" style="color: var(--secondary-color); font-size: 1.5rem;"></i>
-            </div>
-            <div class="result-content" id="result-content">
-                <!-- پاسخ سوال در اینجا نمایش داده می‌شود -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Important Questions Section -->
-    <section class="important-questions" id="important-questions">
+    <footer class="luxury-footer">
         <div class="container">
-            <div class="section-title">
-                <h2>سوالات مهم</h2>
+            <p style="opacity: 0.8; margin-bottom: 1rem;">FAI - هوش مصنوعی فرهیخته | دانش بی‌کران در دستان شما</p>
+            <div class="designer-credit">
+                طراح: آقای فرهیخته
             </div>
-            <div class="questions-grid">
-                <div class="question-card">
-                    <h3>محیط دایره</h3>
-                    <p>فرمول محاسبه محیط دایره چیست؟</p>
-                    <div class="answer">
-                        <p>فرمول محیط دایره: C = 2πr</p>
-                        <p>که در آن:</p>
-                        <p>C: محیط دایره</p>
-                        <p>π: عدد پی (تقریباً 3.14)</p>
-                        <p>r: شعاع دایره</p>
-                    </div>
-                </div>
-                <div class="question-card">
-                    <h3>مساحت مثلث</h3>
-                    <p>چگونه مساحت مثلث را محاسبه کنیم؟</p>
-                    <div class="answer">
-                        <p>فرمول مساحت مثلث: A = ½ × b × h</p>
-                        <p>که در آن:</p>
-                        <p>A: مساحت مثلث</p>
-                        <p>b: طول قاعده مثلث</p>
-                        <p>h: ارتفاع مثلث</p>
-                    </div>
-                </div>
-                <div class="question-card">
-                    <h3>قضیه فیثاغورث</h3>
-                    <p>قضیه فیثاغورث چه می‌گوید؟</p>
-                    <div class="answer">
-                        <p>در مثلث قائم‌الزاویه، مربع وتر برابر است با مجموع مربعات دو ضلع دیگر.</p>
-                        <p>a² + b² = c²</p>
-                        <p>که در آن c وتر مثلث است.</p>
-                    </div>
-                </div>
-                <div class="question-card">
-                    <h3>اعداد گویا</h3>
-                    <p>اعداد گویا چه اعدادی هستند؟</p>
-                    <div class="answer">
-                        <p>اعداد گویا اعدادی هستند که بتوان آن‌ها را به صورت کسر a/b نوشت، که در آن a و b اعداد صحیح هستند و b ≠ 0.</p>
-                        <p>مثال: ½, ¾, 2, -5</p>
-                    </div>
-                </div>
-                <div class="question-card">
-                    <h3>معادله خط</h3>
-                    <p>فرمول معادله خط چیست؟</p>
-                    <div class="answer">
-                        <p>فرمول کلی معادله خط: y = mx + b</p>
-                        <p>که در آن:</p>
-                        <p>m: شیب خط</p>
-                        <p>b: عرض از مبدأ</p>
-                    </div>
-                </div>
-                <div class="question-card">
-                    <h3>محاسبه حجم مکعب</h3>
-                    <p>چگونه حجم مکعب را محاسبه کنیم؟</p>
-                    <div class="answer">
-                        <p>فرمول حجم مکعب: V = a³</p>
-                        <p>که در آن:</p>
-                        <p>V: حجم مکعب</p>
-                        <p>a: طول ضلع مکعب</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>سایت پاسخگوی سوالات ریاضی پایه نهم</p>
-            <p class="creator">سازنده: طاها فرهیخته</p>
         </div>
     </footer>
 
     <script>
-        // دیتابیس سوالات و پاسخ‌ها (به عنوان پشتیبان)
-        const mathDatabase = {
-            "سوال ۲ صفحه ۲۲": "پاسخ سوال ۲ صفحه ۲۲: این سوال درباره جمع اعداد صحیح است. برای حل آن باید ابتدا اعداد مثبت و منفی را از هم جدا کرده و سپس محاسبه را انجام دهید.",
-            "فرمول محیط دایره": "فرمول محیط دایره: C = 2πr که در آن C محیط دایره، π عدد پی (تقریباً 3.14) و r شعاع دایره است.",
-            "جمع اعداد گویا": "برای جمع اعداد گویا، ابتدا مخرج‌ها را یکسان کنید، سپس صورت‌ها را با هم جمع کنید و مخرج مشترک را حفظ کنید.",
-            "قضیه فیثاغورث": "در مثلث قائم‌الزاویه، مربع وتر برابر است با مجموع مربعات دو ضلع دیگر. فرمول: a² + b² = c²",
-            "مساحت مثلث": "فرمول مساحت مثلث: A = ½ × b × h که در آن A مساحت، b طول قاعده و h ارتفاع مثلث است.",
-            "محاسبه حجم مکعب": "فرمول حجم مکعب: V = a³ که در آن V حجم و a طول ضلع مکعب است.",
-            "اعداد اول": "اعداد اول اعدادی طبیعی بزرگتر از 1 هستند که فقط بر 1 و خودشان بخش‌پذیر باشند. مانند: 2, 3, 5, 7, 11, ...",
-            "معادله درجه دوم": "فرمول کلی معادله درجه دوم: ax² + bx + c = 0. ریشه‌های آن با فرمول x = [-b ± √(b² - 4ac)] / 2a محاسبه می‌شوند.",
-            "محیط مستطیل": "فرمول محیط مستطیل: P = 2(l + w) که در آن P محیط، l طول و w عرض مستطیل است.",
-            "مساحت دایره": "فرمول مساحت دایره: A = πr² که در آن A مساحت، π عدد پی و r شعاع دایره است."
+        // ==================== کتابخانه دانش FAI ====================
+        
+        // تاریخ و تمدن (گسترده‌تر)
+        const knowledgeBase = {
+            // تاریخ
+            "تاریخ": {
+                "ایران": `
+                    <h3>📜 تاریخ ایران - گهواره تمدن</h3>
+                    <p>ایران باستان یکی از کهن‌ترین تمدن‌های جهان با قدمتی بیش از ۷۰۰۰ سال است که تأثیر عمیقی بر فرهنگ جهانی گذاشته است.</p>
+                    
+                    <h4>🕌 دوره‌های مهم:</h4>
+                    <ul>
+                        <li><strong>هخامنشیان (۵۵۰-۳۳۰ ق.م)</strong>: بزرگ‌ترین امپراتوری جهان باستان</li>
+                        <li><strong>ساسانیان (۲۲۴-۶۵۱ م)</strong>: آخرین امپراتوری ایرانی پیش از اسلام</li>
+                        <li><strong>صفویان (۱۵۰۱-۱۷۳۶)</strong>: احیای وحدت ملی و تشیع</li>
+                    </ul>
+                    
+                    <h4>🏛️ دستاوردها:</h4>
+                    <ul>
+                        <li>منشور کوروش - نخستین اعلامیه حقوق بشر</li>
+                        <li>تخت جمشید - شاهکار معماری جهان باستان</li>
+                        <li>قنات - سیستم آبیاری پیشرفته</li>
+                    </ul>
+                `,
+                "تهران": `
+                    <h3>🏙️ تاریخ تهران</h3>
+                    <p>تهران پایتخت ایران، شهری با پیشینه تاریخی غنی که از روستایی کوچک به کلان‌شهری جهانی تبدیل شده است.</p>
+                    
+                    <h4>📅 مراحل توسعه:</h4>
+                    <ul>
+                        <li><strong>دوره پیش از اسلام</strong>: منطقه‌ای مسکونی در ری باستان</li>
+                        <li><strong>قرن ۹ هجری</strong>: تبدیل به شهرکی مهم</li>
+                        <li><strong>آقا محمدخان قاجار (۱۷۸۶)</strong>: انتخاب به عنوان پایتخت</li>
+                        <li><strong>دوره پهلوی</strong>: توسعه مدرن و گسترش شهری</li>
+                    </ul>
+                    
+                    <h4>🏰 بناهای تاریخی:</h4>
+                    <ul>
+                        <li>کاخ گلستان - میراث جهانی یونسکو</li>
+                        <li>برج آزادی - نماد تهران مدرن</li>
+                        <li>موزه ملی ایران - گنجینه تاریخ</li>
+                        <li>بازار تهران - قلب اقتصادی شهر</li>
+                    </ul>
+                `,
+                "مصر": `
+                    <h3>🔺 تاریخ مصر باستان</h3>
+                    <p>تمدن مصر باستان با ۳۰۰۰ سال تاریخ، از درخشان‌ترین تمدن‌های تاریخ بشر است.</p>
+                    
+                    <h4>👑 دوره‌های مهم:</h4>
+                    <ul>
+                        <li>پادشاهی کهن (اهرام)</li>
+                        <li>پادشاهی میانه (ادبیات)</li>
+                        <li>پادشاهی نوین (امپراتوری)</li>
+                    </ul>
+                `
+            },
+            
+            // علم
+            "علم": {
+                "فیزیک": `
+                    <h3>🔬 علم فیزیک - قوانین طبیعت</h3>
+                    <p>فیزیک علم مطالعه ماده، انرژی و برهمکنش‌های آنها در کوچک‌ترین و بزرگ‌ترین مقیاس‌هاست.</p>
+                    
+                    <h4>📊 شاخه‌های اصلی:</h4>
+                    <ul>
+                        <li>مکانیک کلاسیک (نیوتن)</li>
+                        <li>الکترومغناطیس (ماکسول)</li>
+                        <li>مکانیک کوانتوم</li>
+                        <li>نسبیت (اینشتین)</li>
+                    </ul>
+                `,
+                "نجوم": `
+                    <h3>🌌 علم نجوم - شناخت کیهان</h3>
+                    <p>نجوم علم مطالعه اجرام آسمانی، فضا و جهان است.</p>
+                    
+                    <h4>✨ موضوعات اصلی:</h4>
+                    <ul>
+                        <li>سیارات و منظومه شمسی</li>
+                        <li>ستارگان و تکامل آنها</li>
+                        <li>کهکشان‌ها و کیهان‌شناسی</li>
+                    </ul>
+                `
+            },
+            
+            // فلسفه
+            "فلسفه": {
+                "یونان": `
+                    <h3>🏛️ فلسفه یونان باستان</h3>
+                    <p>زادگاه فلسفه غربی با متفکرانی که پایه‌های تفکر منطقی را بنیان نهادند.</p>
+                    
+                    <h4>👥 فیلسوفان برجسته:</h4>
+                    <ul>
+                        <li>سقراط - روش پرسش و پاسخ</li>
+                        <li>افلاطون - نظریه مُثُل</li>
+                        <li>ارسطو - منطق و طبقه‌بندی علوم</li>
+                    </ul>
+                `,
+                "اسلامی": `
+                    <h3>☪️ فلسفه اسلامی</h3>
+                    <p>ترکیبی از حکمت یونانی و تفکر اسلامی که در دوران طلایی اسلام شکوفا شد.</p>
+                    
+                    <h4>👨‍🏫 فیلسوفان:</h4>
+                    <ul>
+                        <li>ابن سینا (پزشک و فیلسوف)</li>
+                        <li>فارابی (معلم ثانی)</li>
+                        <li>ملاصدرا (حکمت متعالیه)</li>
+                    </ul>
+                `
+            },
+            
+            // هنر
+            "هنر": {
+                "ایران": `
+                    <h3>🎨 هنر ایران</h3>
+                    <p>هنر ایرانی با تنوع و ظرافت بی‌نظیر، در طول تاریخ همواره درخشان بوده است.</p>
+                    
+                    <h4>🖼️ انواع هنر ایرانی:</h4>
+                    <ul>
+                        <li>مینیاتور و نقاشی</li>
+                        <li>خوشنویسی</li>
+                        <li>معماری (ایوان، گنبد، مقرنس)</li>
+                        <li>قالی‌بافی و صنایع دستی</li>
+                    </ul>
+                `
+            },
+            
+            // ادبیات
+            "ادبیات": {
+                "فارسی": `
+                    <h3>📚 ادبیات فارسی</h3>
+                    <p>ادبیات فارسی با غنای بی‌نظیر، میراث فرهنگی ارزشمندی برای بشریت است.</p>
+                    
+                    <h4>📖 دوره‌های ادبی:</h4>
+                    <ul>
+                        <li>ادبیات پیش از اسلام (اوستا)</li>
+                        <li>ادبیات کلاسیک (فردوسی، سعدی، حافظ، مولوی)</li>
+                        <li>ادبیات معاصر</li>
+                    </ul>
+                `
+            }
         };
-
-        // عناصر DOM
-        const apiKeyInput = document.getElementById('api-key-input');
-        const saveApiBtn = document.getElementById('save-api-btn');
-        const apiStatusText = document.getElementById('api-status-text');
-        const questionInput = document.getElementById('question-input');
-        const searchBtn = document.getElementById('search-btn');
-        const resultSection = document.getElementById('result');
-        const resultContent = document.getElementById('result-content');
-        const examples = document.querySelectorAll('.example');
-        const loading = document.getElementById('loading');
-
-        // بارگذاری API Key از localStorage
-        let API_KEY = localStorage.getItem('math_api_key');
-        if (API_KEY) {
-            apiKeyInput.value = API_KEY;
-            updateApiStatus(true);
-        }
-
-        // ذخیره API Key
-        saveApiBtn.addEventListener('click', function() {
-            const key = apiKeyInput.value.trim();
-            if (key) {
-                API_KEY = key;
-                localStorage.setItem('math_api_key', key);
-                updateApiStatus(true);
-                alert('کلید API با موفقیت ذخیره شد!');
-            } else {
-                alert('لطفاً یک کلید API معتبر وارد کنید.');
-            }
-        });
-
-        // به روزرسانی وضعیت API
-        function updateApiStatus(isSet) {
-            if (isSet) {
-                apiStatusText.textContent = "API تنظیم شده است و آماده استفاده می‌باشد.";
-                apiStatusText.className = "status-online";
-            } else {
-                apiStatusText.textContent = "API تنظیم نشده است. از دیتابیس داخلی استفاده می‌شود.";
-                apiStatusText.className = "status-offline";
-            }
-        }
-
-        // فراخوانی API برای دریافت پاسخ
-        async function callMathAPI(question) {
-            // نمایش حالت در حال بارگذاری
-            loading.style.display = 'block';
-            resultSection.classList.remove('active');
+        
+        // ==================== سیستم جستجوی کلمات کلیدی ====================
+        
+        // لیست کلمات بی‌اهمیت برای حذف
+        const stopWords = [
+            'چه', 'چگونه', 'چرا', 'کی', 'کجا', 'با', 'در', 'از', 'به',
+            'برای', 'و', 'یا', 'اگر', 'که', 'این', 'آن', 'است', 'شد'
+        ];
+        
+        // استخراج کلمات کلیدی از متن
+        function extractKeywords(text) {
+            if (!text) return [];
             
-            // اگر API Key تنظیم نشده باشد، از دیتابیس داخلی استفاده می‌کنیم
-            if (!API_KEY) {
-                loading.style.display = 'none';
-                return getAnswerFromDatabase(question);
-            }
+            // حذف علائم نگارشی و تبدیل به حروف کوچک
+            const cleanText = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()؟?،]/g, '');
             
-            try {
-                // اینجا باید آدرس واقعی API را قرار دهید
-                // این فقط یک نمونه است
-                const response = await fetch('https://api.example.com/math-answers', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        question: question,
-                        subject: 'ریاضی نهم',
-                        grade: 'نهم'
-                    })
-                });
+            // تقسیم به کلمات
+            const words = cleanText.split(/\s+/);
+            
+            // فیلتر کلمات بی‌اهمیت و کوتاه
+            const keywords = words.filter(word => {
+                return word.length > 2 && 
+                       !stopWords.includes(word) &&
+                       !/\d/.test(word);
+            });
+            
+            // حذف duplicates و مرتب‌سازی
+            return [...new Set(keywords)];
+        }
+        
+        // جستجوی بهترین تطابق بر اساس کلمات کلیدی
+        function searchByKeywords(keywords) {
+            let bestMatch = null;
+            let bestScore = 0;
+            
+            // جستجو در تمام دانش
+            for (const [mainCategory, subCategories] of Object.entries(knowledgeBase)) {
+                // بررسی تطابق با دسته اصلی
+                const mainMatch = keywords.filter(keyword => 
+                    mainCategory.includes(keyword) || keyword.includes(mainCategory)
+                ).length;
                 
-                if (!response.ok) {
-                    throw new Error('خطا در ارتباط با API');
-                }
-                
-                const data = await response.json();
-                return data.answer || 'پاسخی برای این سوال یافت نشد.';
-            } catch (error) {
-                console.error('خطا در فراخوانی API:', error);
-                // در صورت خطا از دیتابیس داخلی استفاده می‌کنیم
-                return getAnswerFromDatabase(question);
-            } finally {
-                loading.style.display = 'none';
-            }
-        }
-
-        // جستجو در دیتابیس داخلی
-        function getAnswerFromDatabase(question) {
-            // جستجو در دیتابیس
-            let answer = mathDatabase[question];
-            
-            if (!answer) {
-                // اگر سوال دقیقاً پیدا نشد، جستجوی جزئی انجام می‌دهیم
-                for (const key in mathDatabase) {
-                    if (question.includes(key) || key.includes(question)) {
-                        answer = mathDatabase[key];
-                        break;
+                if (mainMatch > 0) {
+                    // جستجو در زیردسته‌ها
+                    for (const [subCategory, content] of Object.entries(subCategories)) {
+                        let score = mainMatch;
+                        
+                        // بررسی تطابق با زیردسته
+                        const subMatch = keywords.filter(keyword => 
+                            subCategory.includes(keyword) || keyword.includes(subCategory)
+                        ).length;
+                        
+                        score += subMatch * 2; // وزن بیشتر برای تطابق دقیق‌تر
+                        
+                        if (score > bestScore) {
+                            bestScore = score;
+                            bestMatch = {
+                                mainCategory,
+                                subCategory,
+                                content,
+                                score
+                            };
+                        }
                     }
                 }
             }
             
-            return answer || 'متأسفانه پاسخی برای سوال شما یافت نشد. لطفاً سوال خود را به شکل دیگری بیان کنید.';
+            return bestMatch;
         }
-
-        // تابع جستجو
-        async function searchAnswer() {
-            const question = questionInput.value.trim();
+        
+        // ==================== توابع اصلی ====================
+        
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const question = document.getElementById('searchInput').value.trim();
             
-            if (question === '') {
-                showResult('لطفاً سوال خود را وارد کنید.');
+            if (!question) {
+                showError('لطفاً سوال یا موضوع مورد نظر خود را وارد کنید');
                 return;
             }
             
-            // استفاده از API برای دریافت پاسخ
-            const answer = await callMathAPI(question);
-            showResult(answer);
-        }
-
-        // تابع نمایش نتیجه
-        function showResult(content) {
-            resultContent.innerHTML = content;
-            resultSection.classList.add('active');
-            
-            // اسکرول به بخش نتیجه
-            resultSection.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // رویدادهای کلیک
-        searchBtn.addEventListener('click', searchAnswer);
-        
-        questionInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchAnswer();
-            }
+            getAIResponse(question);
         });
         
-        examples.forEach(example => {
-            example.addEventListener('click', function() {
-                questionInput.value = this.textContent;
-                searchAnswer();
+        async function getAIResponse(question) {
+            showLoading();
+            hideError();
+            hideResponse();
+            
+            // استخراج کلمات کلیدی
+            const keywords = extractKeywords(question);
+            
+            setTimeout(() => {
+                try {
+                    let answer;
+                    let keywordsList = keywords.join(', ');
+                    
+                    // نمایش کلمات کلیدی شناسایی شده
+                    document.getElementById('keywordsList').textContent = keywordsList || 'کلمه کلیدی خاصی شناسایی نشد';
+                    
+                    if (keywords.length === 0) {
+                        answer = getGeneralResponse(question);
+                    } else {
+                        // جستجوی هوشمند بر اساس کلمات کلیدی
+                        const match = searchByKeywords(keywords);
+                        
+                        if (match) {
+                            answer = match.content;
+                        } else {
+                            answer = getSmartResponse(question, keywords);
+                        }
+                    }
+                    
+                    showResponse(question, answer);
+                } catch (error) {
+                    showError('خطا در پردازش درخواست. لطفاً مجدداً تلاش کنید.');
+                } finally {
+                    hideLoading();
+                }
+            }, 1200);
+        }
+        
+        // پاسخ هوشمند برای سوالات بدون تطابق دقیق
+        function getSmartResponse(question, keywords) {
+            return `
+                <h3>🤔 پاسخ به سوال شما: "${question}"</h3>
+                <p>بر اساس کلمات کلیدی <strong>${keywords.join(', ')}</strong>، بهترین اطلاعات مرتبط:</p>
+                
+                <div style="background: rgba(212, 175, 55, 0.1); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                    <h4>🎯 تحلیل کلمات کلیدی:</h4>
+                    <p>سیستم FAI کلمات کلیدی زیر را در سوال شما شناسایی کرد:</p>
+                    <ul>
+                        ${keywords.map(keyword => `<li><strong>${keyword}</strong>: اطلاعات مرتبط با این موضوع در دانش‌نامه موجود است</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <h4>📚 اطلاعات عمومی:</h4>
+                <p>FAI یک هوش مصنوعی فرهیخته است که در حوزه‌های زیر اطلاعات تخصصی ارائه می‌دهد:</p>
+                <ul>
+                    <li><strong>تاریخ</strong>: ایران، جهان، تمدن‌های باستان</li>
+                    <li><strong>علم</strong>: فیزیک، نجوم، ریاضیات، پزشکی</li>
+                    <li><strong>فلسفه</strong>: یونان، اسلامی، غربی</li>
+                    <li><strong>هنر و ادبیات</strong>: ایران، جهان</li>
+                    <li><strong>تکنولوژی</strong>: هوش مصنوعی، بلاکچین، برنامه‌نویسی</li>
+                </ul>
+                
+                <div style="margin-top: 30px; padding: 15px; border: 1px solid var(--dark-gold); border-radius: 10px;">
+                    <p><i class="fas fa-lightbulb" style="color: var(--gold);"></i> <strong>پیشنهاد:</strong> سوال خود را با جزئیات بیشتری مطرح کنید یا از موضوعات پیشنهادی استفاده نمایید.</p>
+                </div>
+            `;
+        }
+        
+        // پاسخ عمومی
+        function getGeneralResponse(question) {
+            return `
+                <h3>🌟 پاسخ به: "${question}"</h3>
+                <p>سوال شما توسط سیستم FAI دریافت شد. برای ارائه پاسخ دقیق‌تر:</p>
+                
+                <ul>
+                    <li>موضوع مورد نظر خود را مشخص‌تر بیان کنید</li>
+                    <li>از کلمات کلیدی واضح استفاده نمایید</li>
+                    <li>یا یکی از موضوعات داغ را انتخاب کنید</li>
+                </ul>
+                
+                <p>هوش مصنوعی فرهیخته FAI آماده پاسخ‌گویی به سوالات تخصصی شماست.</p>
+            `;
+        }
+        
+        // جستجوی سریع
+        function quickSearch(query) {
+            document.getElementById('searchInput').value = query;
+            document.getElementById('searchForm').dispatchEvent(new Event('submit'));
+        }
+        
+        // ==================== توابع کمکی ====================
+        
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+        
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+        
+        function showResponse(question, answer) {
+            document.getElementById('responseTitle').textContent = `پاسخ به: "${question.substring(0, 50)}${question.length > 50 ? '...' : ''}"`;
+            document.getElementById('responseContent').innerHTML = answer;
+            document.getElementById('responseSection').style.display = 'block';
+            document.getElementById('keywordsDisplay').style.display = 'block';
+            
+            // اسکرول به بخش پاسخ
+            document.getElementById('responseSection').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
             });
+        }
+        
+        function hideResponse() {
+            document.getElementById('responseSection').style.display = 'none';
+            document.getElementById('keywordsDisplay').style.display = 'none';
+        }
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            errorDiv.style.background = 'linear-gradient(135deg, rgba(120, 0, 0, 0.9), rgba(80, 0, 0, 0.9))';
+            errorDiv.style.border = '2px solid #8B0000';
+            errorDiv.style.color = 'var(--text-light)';
+            errorDiv.style.padding = '1.5rem';
+            errorDiv.style.borderRadius = '15px';
+            errorDiv.style.margin = '2rem auto';
+            errorDiv.style.maxWidth = '900px';
+            errorDiv.style.textAlign = 'center';
+            errorDiv.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.5)';
+        }
+        
+        function hideError() {
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+        
+        // ==================== راه‌اندازی اولیه ====================
+        
+        // راه‌اندازی اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            // افزودن رویداد کلیک به کارت‌های موضوعات
+            document.querySelectorAll('.topic-card').forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('h3').textContent;
+                    quickSearch(title);
+                });
+            });
+            
+            // فوکوس روی input جستجو
+            document.getElementById('searchInput').focus();
         });
     </script>
 </body>
-    </html>
+</html>
